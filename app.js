@@ -1,5 +1,8 @@
 const { useState, useEffect } = React;
 
+// Initialize EmailJS
+emailjs.init("uohsz2sAgojF0lb3Y");
+
 // Lucide React icons as components (since we can't import normally)
 const Calendar = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -222,30 +225,99 @@ const AppointmentScheduler = () => {
   };
 
   // Handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.phone || !formData.service) {
       alert('Please fill in all required fields');
       return;
     }
     
-    const newAppointment = {
-      id: Date.now(),
-      date: selectedDate,
-      time: selectedTime,
-      ...formData,
-      status: 'confirmed'
-    };
-    
-    setAppointments([...appointments, newAppointment]);
-    setIsSubmitted(true);
-    
-    setTimeout(() => {
-      setCurrentStep('calendar');
-      setSelectedDate('');
-      setSelectedTime('');
-      setFormData({ name: '', email: '', phone: '', service: '', notes: '' });
-      setIsSubmitted(false);
-    }, 3000);
+    // Show loading state
+    const submitButton = document.querySelector('button[type="submit"]');
+    const originalText = submitButton?.innerHTML;
+    if (submitButton) {
+      submitButton.innerHTML = '<div style="display: flex; align-items: center; justify-content: center;"><div style="width: 16px; height: 16px; border: 2px solid #ffffff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px;"></div>Sending...</div>';
+      submitButton.disabled = true;
+    }
+
+    try {
+      // Prepare email data
+      const selectedService = services.find(s => s.id === formData.service);
+      const formattedDate = new Date(selectedDate).toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+
+      const emailData = {
+        client_name: formData.name,
+        client_email: formData.email,
+        session_date: formattedDate,
+        session_time: selectedTime,
+        service_name: selectedService?.name || 'Unknown Service',
+        client_notes: formData.notes || 'No additional notes provided'
+      };
+
+      // Send email via EmailJS
+      await emailjs.send(
+        "service_kvrzkmq",
+        "template_ujgw9fb", 
+        emailData
+      );
+
+      // Create appointment record
+      const newAppointment = {
+        id: Date.now(),
+        date: selectedDate,
+        time: selectedTime,
+        ...formData,
+        status: 'confirmed'
+      };
+      
+      setAppointments([...appointments, newAppointment]);
+      setIsSubmitted(true);
+      
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setCurrentStep('calendar');
+        setSelectedDate('');
+        setSelectedTime('');
+        setFormData({ name: '', email: '', phone: '', service: '', notes: '' });
+        setIsSubmitted(false);
+      }, 5000);
+
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      
+      // Reset button state
+      if (submitButton) {
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+      }
+      
+      // Show user-friendly error
+      alert('There was an issue sending your confirmation email, but your appointment has been noted. We\'ll contact you shortly to confirm.');
+      
+      // Still create the appointment even if email fails
+      const newAppointment = {
+        id: Date.now(),
+        date: selectedDate,
+        time: selectedTime,
+        ...formData,
+        status: 'pending' // Mark as pending if email failed
+      };
+      
+      setAppointments([...appointments, newAppointment]);
+      setIsSubmitted(true);
+      
+      setTimeout(() => {
+        setCurrentStep('calendar');
+        setSelectedDate('');
+        setSelectedTime('');
+        setFormData({ name: '', email: '', phone: '', service: '', notes: '' });
+        setIsSubmitted(false);
+      }, 5000);
+    }
   };
 
   if (isSubmitted) {
@@ -267,6 +339,10 @@ const AppointmentScheduler = () => {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
           }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
         `}</style>
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center bounce-in">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
@@ -281,8 +357,16 @@ const AppointmentScheduler = () => {
               day: 'numeric' 
             })} at {selectedTime}.
           </p>
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center">
+              <span className="text-green-600 mr-2">📧</span>
+              <p className="text-green-800 text-sm font-medium">
+                Confirmation email sent to {formData.email}
+              </p>
+            </div>
+          </div>
           <p className="text-sm text-gray-500">
-            A confirmation email has been sent to {formData.email}. The Transform Squad team looks forward to helping you achieve your business improvement goals!
+            The Transform Squad team looks forward to helping you achieve your business improvement goals! Check your email for session details and next steps.
           </p>
         </div>
       </div>
