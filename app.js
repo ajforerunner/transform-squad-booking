@@ -250,6 +250,7 @@ const AppointmentScheduler = () => {
       });
 
       const emailData = {
+        to_email: formData.email, // This tells EmailJS where to send the email
         client_name: formData.name,
         client_email: formData.email,
         session_date: formattedDate,
