@@ -546,33 +546,47 @@ const AppointmentScheduler = () => {
 
               <div className="space-y-6 fade-in">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      placeholder="Enter your email"
-                    />
-                  </div>
+ <div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Full Name *
+  </label>
+  <input
+    type="text"
+    required
+    value={formData.name}
+    onChange={(e) => setFormData({...formData, name: e.target.value})}
+    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+    placeholder="Enter your full name"
+  />
+</div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      placeholder="Enter your phone number"
-                    />
-                  </div>
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Email Address *
+  </label>
+  <input
+    type="email"
+    required
+    value={formData.email}
+    onChange={(e) => setFormData({...formData, email: e.target.value})}
+    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+    placeholder="Enter your email"
+  />
+</div>
+
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Phone Number *
+  </label>
+  <input
+    type="tel"
+    required
+    value={formData.phone}
+    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+    placeholder="Enter your phone number"
+  />
+</div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
