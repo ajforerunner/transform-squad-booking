@@ -546,47 +546,47 @@ const AppointmentScheduler = () => {
 
               <div className="space-y-6 fade-in">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div>
-  <label className="block text-sm font-medium text-gray-700 mb-2">
-    Full Name *
-  </label>
-  <input
-    type="text"
-    required
-    value={formData.name}
-    onChange={(e) => setFormData({...formData, name: e.target.value})}
-    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-    placeholder="Enter your full name"
-  />
-</div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      placeholder="Enter your full name"
+                    />
+                  </div>
 
-<div>
-  <label className="block text-sm font-medium text-gray-700 mb-2">
-    Email Address *
-  </label>
-  <input
-    type="email"
-    required
-    value={formData.email}
-    onChange={(e) => setFormData({...formData, email: e.target.value})}
-    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-    placeholder="Enter your email"
-  />
-</div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      placeholder="Enter your email"
+                    />
+                  </div>
 
-<div>
-  <label className="block text-sm font-medium text-gray-700 mb-2">
-    Phone Number *
-  </label>
-  <input
-    type="tel"
-    required
-    value={formData.phone}
-    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-    placeholder="Enter your phone number"
-  />
-</div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -883,7 +883,7 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            {/* Today's Appointments */}
+            {/* Today's Schedule */}
             <div className="bg-white rounded-lg shadow-sm">
               <div className="p-6 border-b">
                 <h3 className="text-lg font-semibold text-gray-900">Today's Schedule</h3>
@@ -921,11 +921,10 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* Appointments Tab */}
+        {/* Sessions Tab */}
         {activeTab === 'appointments' && (
           <div className="fade-in">
             <div className="bg-white rounded-lg shadow-sm">
-              {/* Filters */}
               <div className="p-6 border-b">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                   <h3 className="text-lg font-semibold text-gray-900">All Sessions</h3>
@@ -953,7 +952,6 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Appointments List */}
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50">
@@ -1114,18 +1112,4 @@ function App() {
 }
 
 // Render the app
-ReactDOM.render(<App />, document.getElementById('root'));-500 transition-all duration-200"
-                      placeholder="Enter your full name"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue
+ReactDOM.render(<App />, document.getElementById('root'));
