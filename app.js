@@ -259,11 +259,15 @@ const AppointmentScheduler = () => {
         client_notes: formData.notes || 'No additional notes provided'
       };
 
+      // Debug logging
+      console.log('Sending email with data:', emailData);
+
       // Send email via EmailJS
       await emailjs.send(
         "service_kvrzkmq",
         "template_ujgw9fb", 
-        emailData
+        emailData,
+        "uohsz2sAgojF0lb3Y"
       );
 
       // Create appointment record
